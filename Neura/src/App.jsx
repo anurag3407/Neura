@@ -2,6 +2,7 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import { URL } from "./constants";
+import Answer from "./components/Answers";
 
 function App() {
   const [question, setQuestion] = useState("");
@@ -28,9 +29,10 @@ function App() {
 
     let dataString = response.candidates[0].content.parts[0].text; 
     dataString = dataString.split("*");
+    dataString = dataString.map((item) => item.trim());
 
-    console.log(response.candidates[0].content.parts[0].text);  
-    setResult(response.candidates[0].content.parts[0].text);
+    // console.log(response.candidates[0].content.parts[0].text);  
+    setResult(dataString);
   };
 
   return (
@@ -38,7 +40,12 @@ function App() {
       <div className="col-span-1 bg-zinc-800"></div>
       <div className="col-span-4">
         <div className="container h-120 text-amber-50 overflow-scroll">
-          {result}
+          <ul>
+          {/* {result} */}
+          {
+            result && result.map ((item, index) => <li key={index} className="text-left p-1"><Answer ans={item} totalResult={result.length} index={index} /></li>)
+            }
+          </ul>
         </div>
         <div className="bg-zinc-800 w-1/2 p-1 pr-5 text-white m-auto rounded-4xl border border-zinc-600 flex h-16">
           <input
