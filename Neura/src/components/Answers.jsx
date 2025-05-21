@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { checkHeading, replaceHeadingStarts } from "../helper";
-import SyntaxHighlighter from "react-syntax-highlighter/dist/cjs/light";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 import ReactMarkdown from 'react-markdown'
@@ -41,14 +41,14 @@ const Answer = ({ ans, totalResult, index,type }) => {
     return (
         <>
             {
-                index == 0 && totalResult > 1 ? <span className="pt-2 text-xl block text-white">{answer}</span> :
-                    heading ? <span className={"pt-2 text-lg block text-white"} >{answer}</span>
-                        : <span className={type=='q'?'pl-1':'pl-5'} >
-                            <ReactMarkdown components={renderer} >{answer}</ReactMarkdown>
-                        </span>
+                index === 0 && totalResult > 1 ? 
+                    <span className="text-xl font-semibold block text-white mb-1">{answer}</span> :
+                heading ? 
+                    <span className="text-lg font-medium block text-white">{answer}</span> :
+                <span className="text-base">  
+                    <ReactMarkdown components={renderer}>{answer}</ReactMarkdown>
+                </span>
             }
-
-
         </>
     )
 }
